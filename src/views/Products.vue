@@ -5,19 +5,19 @@
 		<!-- align-middle 查 -->
 		<table class="table align-middle">
 			<thead>
-				<tr>
-					<th>圖片</th>
-					<th>商品名稱</th>
-					<th>價格</th>
-					<th></th>
-				</tr>
-			</thead>
+        <tr>
+          <th>圖片</th>
+          <th>商品名稱</th>
+          <th>價格</th>
+          <th></th>
+        </tr>
+      </thead>
 			<tbody>
 				<!-- products 多筆渲染 -->
 				<tr v-for="item in products" :key="item.id">
 					<td style="width: 200px">
-						<div style="width:100px; background-size: cover; background-position: center"
-						:style="{ backgroundImage:`url(${item.imageUrl})` }">
+						<div style="height:100px; background-size: cover; background-position: center;"
+						:style="{ backgroundImage: `url(${item.imageUrl})` }">
 						<!-- 加入背景圖片，前面是屬性名稱，後面是值 -->
 						</div>
 					</td>
@@ -28,7 +28,7 @@
 						<!-- 如果金額不等於 item.price 就渲染 item.origin_price -->
 						<!-- 當有輸入售價時，就把原價畫上刪除線、並顯示售價。如果沒有售價的話，就直接顯示原價 -->
 						<div class="h5" v-if="!item.price">{{ item.origin_price }} 元</div>
-						<div class="h6" v-if="item.price">原價 {{ item.origin_price }} 元</div>
+						<del class="h6" v-if="item.price">原價 {{ item.origin_price }} 元</del>
 						<div class="h5" v-if="item.price">現在只要 {{ item.price }} 元</div>
 					</td>
 					<td>
@@ -38,23 +38,23 @@
 							如果 loadingStatus.loadingItem 等於 item.id 就啟動 disabled -->
 							<button
 								type="button"
-								class="btn btn-outline-secondary"
-								@click="getProduct(item.id)"
-								:disabled="loadingStatus.loadingItem === item.id">
+                class="btn btn-outline-secondary"
+                @click="getProduct(item.id)"
+                :disabled="loadingStatus.loadingItem === item.id">
 								<!-- v-if="lodingStatus.lodingItem === item.id" 
 								v-if 為條件判斷 這裡為 disabled 的判斷式 -->
 								<i class="fas fa-spinner fa-pulse"
-									v-if="lodingStatus.lodingItem === item.id"
+									v-if="loadingStatus.loadingItem === item.id"
 								></i>
 									查看更多
 							</button>
 							<button
 								type="button"
-								class="btn btn-outline-danger"
-								@click="addToCart(item.id)"
-								:disabled="loadingStatus.loadingItem === item.id">
+                class="btn btn-outline-danger"
+                @click="addToCart(item.id)"
+                :disabled="loadingStatus.loadingItem === item.id">
 								<i class="fas fa-spinner fa-pulse"
-									v-if="loadingStatus.loadingItem === item.id"
+                  v-if="loadingStatus.loadingItem === item.id"
 								></i>
 								加到購物車
 							</button>
@@ -64,9 +64,9 @@
 			</tbody>
 		</table>
 		<UserProductModal
-		ref="userProductModal"
-		:product="product"
-		@add-to-cart="addToCart">
+      ref="userProductModal"
+      :product="product"
+      @add-to-cart="addToCart">
 		</UserProductModal>
 	</div>
 </template>
@@ -83,25 +83,23 @@ export default {
 			products: [],
 			// disabled 判斷
 			loadingStatus: {
-				loadingItem: '',
+        loadingItem: ''
 			},
 			// 問
 			isLoading: false,
-			product: {},
+      product: {},
 		};
 	},
 	// 問
 	components: {
-		UserProductModal,
-	},
+    UserProductModal,
+  },
 	created() {
-		// 研究
 		this.getProducts();
 	},
 	methods: {
-		// 問
 		// 加入購物車
-		addToCart(id,qty = 1) {
+		addToCart(id, qty = 1) {
 			// 問
 			this.isLoading = true;
 			// 問
@@ -110,32 +108,32 @@ export default {
 			this.loadingStatus.loadingItem = id;
 			// 購物車結構
 			const cart = {
-				product_id: id,
-				qty,
-			};
+        product_id: id,
+        qty,
+      };
 			// [參數]: { "data": { "product_id":"-L9tH8jxVb2Ka_DYPwng","qty":1 } }
-			this.$http.post(url, { data: cart})
+			this.$http.post(url, { data: cart })
 			.then((response) => {
 				// console.log(response);
 				if(response.data.success) {
 					alert(response.data.message);
 					// 資料取得完成以後 disabled 狀態才會消失
 					this.loadingStatus.loadingItem = '';
-					this.$refs.UserProductModal.hideMod();
-					this.isLoading = false;
+          this.$refs.userProductModal.hideModal();
+          this.isLoading = false;
 				}	else {
 					alert(response.data.message);
 				}
 			});
 		},
 		// 問 取得所有產品細節？
-		getProucts() {
+		getProducts() {
 			this.isLoading = true;
-			const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`
+			const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`;
 			// 問 $http 是什麼 這裡得 this 會直接指向 axios ?
 			this.$http.get(url)
 			.then((response) => {
-				if(response.data.success) {
+				if (response.data.success) {
 					// 回傳 response.data 裡面的 products
 					this.products = response.data.products;
 					this.isLoading = false;
@@ -145,17 +143,17 @@ export default {
 			});
 		},
 		// 取得單一商品細節
-		getProuct(id) {
+		getProduct(id) {
 			this.isLoading = true;
 			const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
 			this.loadingStatus.loadingItem = id;
 			this.$http.get(url)
 			.then((response) => {
 				if(response.data.success) {
-					this.loadingStatus.loadingItem = '';
-					this.product = response.data.product;
-					this.isLoading = false;
-					this.$refs.UserProductModal.openModal();
+          this.loadingStatus.loadingItem = '';
+          this.product = response.data.product;
+          this.isLoading = false;
+          this.$refs.userProductModal.openModal();
 				} else {
 					alert(response.data.message);
 				}
