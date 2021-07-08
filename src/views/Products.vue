@@ -100,7 +100,7 @@ export default {
 	methods: {
 		// 加入購物車
 		addToCart(id, qty = 1) {
-			// 問
+			// 問 如果 isLoading 是 true 的話會是什麼樣的結果
 			this.isLoading = true;
 			// 問
 			const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
