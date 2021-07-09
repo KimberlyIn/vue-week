@@ -8,7 +8,6 @@
           <table class="table align-middle">
             <thead>
               <tr>
-                <!-- 問 為什麼要留一個空的 th -->
                 <th></th>
                 <th>品名</th>
                 <th style="width: 110px">數量</th>
@@ -42,7 +41,7 @@
                   </td>
                   <td>
                     <div class="input-group input-group-sm">
-                      <!-- 問 unit -->
+                      <!-- 查 unit -->
                        {{item.qty}} / {{ item.product.unit }}
                     </div>
                   </td>

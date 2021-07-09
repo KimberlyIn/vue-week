@@ -14,7 +14,7 @@ export default {
     };
   },
   created() {
-    // 問
+    // 查
     const { id } = this.$route.params;
     const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
     this.$http.get(url)

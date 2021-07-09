@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is 產品列表頁面</h1>
+    <h1>產品列表頁面</h1>
     <Loading :active="isLoading"></Loading>
     <!-- align-middle 查 -->
     <table class="table align-middle">
@@ -93,7 +93,6 @@ export default {
       loadingStatus: {
         loadingItem: ''
       },
-      // 問
       isLoading: false,
       product: {},
     };
@@ -108,7 +107,6 @@ export default {
   methods: {
     // 加入購物車
     addToCart(id, qty = 1) {
-      // 問 如果 isLoading 是 true 的話會是什麼樣的結果
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       // 阻止用戶一直去點擊 loadingStatus.loadingItem 如果等於 id 就會變成 disabled 的狀態
@@ -132,11 +130,9 @@ export default {
         }
       });
     },
-    // 問 取得所有產品細節？
     getProducts() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`;
-      // 問 $http 是什麼 這裡得 this 會直接指向 axios ?
       this.$http.get(url)
         .then((response) => {
           if (response.data.success) {
