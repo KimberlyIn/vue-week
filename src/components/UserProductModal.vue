@@ -1,16 +1,22 @@
 <template>
-  <div
-    class="modal fade"
+
+	<!-- 查 tabindex="1" -->
+	<!-- 查 role="dialog" -->
+	<!-- 查 aria-labelledby="exampleModalLabel" -->
+	<!-- 查 aria-hidden="true" -->
+
+	<div
+		class="modal fade"
     id="productModal"
     tabindex="-1"
     role="dialog"
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
     ref="modal"
-  >
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content border-0">
-        <div class="modal-header bg-dark text-white">
+	>
+		<div class="modal-dialog modal-xl" role="document">
+			<div class="modal-content border-0">
+				<div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
             <span>{{ product.title }}</span>
           </h5>
@@ -21,12 +27,13 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <img class="img-fluid" :src="product.imagesUrl" alt="" />
-            </div>
-            <div class="col-sm-6">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<!-- 背景圖片 -->
+							<img class="img-fluid" :src="product.imagesUrl" alt="" />
+						</div>
+						<div class="col-sm-6">
               <span class="badge bg-primary rounded-pill">{{
                 product.category
               }}</span>
@@ -59,40 +66,44 @@
                 </div>
               </div>
             </div>
-            <!-- col-sm-6 end -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 import Modal from 'bootstrap/js/dist/modal';
 
 export default {
-  props: {
-    product: {
-      type: Object,
+	// 資料
+	props: {
+		product: {
+			// 不太清楚是放哪裡的資料
+			type: Object,
       default() {
         return {};
       },
-    },
-  },
-  data() {
+		},
+	},
+	data() {
     return {
       status: {},
       modal: '',
       qty: 1,
     };
   },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal, {
+	// 執行方法
+	mounted() {
+		// 對應到 bootstrap 的 modal
+		this.modal = new Modal(this.$refs.modal, {
       keyboard: false,
       backdrop: 'static'
     });
   },
-  methods: {
+	// 把結果執行在畫面上
+	methods: {
     openModal() {
       this.modal.show();
     },
@@ -102,6 +113,3 @@ export default {
   },
 }
 </script>
-
-<style>
-</style>

@@ -1,15 +1,13 @@
 <template>
-  <div>
-    首頁
-  </div>
+    <div>Jemma 首頁</div>
 </template>
 
 <script>
 export default {
-  name: 'Index',
-  data() {
-    return {
-    };
-  },
+    name: 'Index',
+    data() {
+        return {
+        };
+    },
 };
 </script>
