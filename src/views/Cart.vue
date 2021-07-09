@@ -1,13 +1,14 @@
 <template>
   <div class="about">
     <Loading :active="isLoading"></Loading>
-    <h1>This is 購物車頁面</h1>
+    <h1>購物車頁面</h1>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <table class="table align-middle">
             <thead>
               <tr>
+                <!-- 問 為什麼要留一個空的 th -->
                 <th></th>
                 <th>品名</th>
                 <th style="width: 110px">數量</th>
@@ -15,7 +16,9 @@
               </tr>
             </thead>
             <tbody>
+              <!-- 判斷 購物車內是否有資料 -->
               <template v-if="cart.carts">
+                <!-- 把購物車列表抓出來 -->
                 <tr v-for="item in cart.carts" :key="item.id">
                   <td>
                     <button
@@ -39,10 +42,13 @@
                   </td>
                   <td>
                     <div class="input-group input-group-sm">
+                      <!-- 問 unit -->
                        {{item.qty}} / {{ item.product.unit }}
                     </div>
                   </td>
+                  <!-- 查 text-end -->
                   <td class="text-end">
+                    <!-- 查 small -->
                     <small
                       v-if="cart.final_total !== cart.total"
                       class="text-success"
@@ -55,6 +61,7 @@
             </tbody>
             <tfoot>
               <tr>
+                <!-- 查 colspan="3" -->
                 <td colspan="3" class="text-end">總計</td>
                 <td class="text-end">{{ cart.total }}</td>
               </tr>
@@ -67,9 +74,13 @@
         </div>
       </div>
       <div class="my-5 row justify-content-center">
+        <!-- 查 v-slot="{ errors }" @submit="createOrder" -->
         <Form ref="form" class="col-md-6" v-slot="{ errors }" @submit="createOrder">
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
+            <!-- :class="{ 'is-invalid': errors['email'] }"
+						動態綁定 class 的用法 當 errors 陣列中 有包含 email 這個值
+						那就綁定 is_enabled 這個 class。 -->
             <Field
               id="email"
               name="email"
@@ -174,6 +185,7 @@ export default {
     this.getCart();
   },
   methods: {
+    // 取得購物車列表
     getCart() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
@@ -186,6 +198,9 @@ export default {
         }
       });
     },
+    // 刪除某一筆購物車資料
+		// [API]: /api/:api_path/cart/:id
+		// [方法]: delete
     removeCartItem(id) {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
@@ -201,6 +216,7 @@ export default {
         this.isLoading = false;
       });
     },
+    // 結帳頁面
     createOrder() {
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;

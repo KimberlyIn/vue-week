@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-5">
+    <!-- @submit.prevent="signIn" 使畫面不會重新載入 -->
     <form class="row justify-content-center" @submit.prevent="signIn">
       <div class="col-md-6">
         <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
@@ -28,6 +29,9 @@ export default {
     };
   },
   methods: {
+    // 登入
+		// [API]: /admin/signin
+		// [方法]: post
     signIn() {
       const api = `${process.env.VUE_APP_API}admin/signin`;
       this.$http.post(api, this.user).then((response) => {

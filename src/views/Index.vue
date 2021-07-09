@@ -1,7 +1,5 @@
 <template>
-  <div>
-    首頁
-  </div>
+  <div>Jemma 首頁</div>
 </template>
 
 <script>
