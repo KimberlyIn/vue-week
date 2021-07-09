@@ -4,7 +4,8 @@
     <div id="nav">
       <router-link to="/">首頁</router-link> |
       <router-link to="/products">前台產品頁面</router-link> |
-      <router-link to="/cart">前台購物車</router-link> 
+      <router-link to="/cart">前台購物車</router-link> |
+      <router-link to="/admin/products">後台購物車列表</router-link>
     </div>
     <!-- 顯示畫面 -->
     <router-view></router-view>

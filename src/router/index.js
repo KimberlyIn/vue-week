@@ -42,7 +42,22 @@ const routes = [
     ],
   },
   {
-    
+    path: '/login',
+    component: () => import('../views/Login.vue'),
+  },
+  {
+    path: '/admin',
+    component: () => import('../views/Dashboard.vue'),
+    children: [
+      {
+        path: 'products',
+        component: () => import('../views/Dashboard/Products.vue'),
+      },
+      {
+        path: 'orders',
+        component: () => import('../views/Dashboard/Orders.vue'),
+      },
+    ],
   },
 ]
 
