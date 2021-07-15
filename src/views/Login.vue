@@ -37,7 +37,7 @@ export default {
       this.$http.post(api, this.user).then((response) => {
         if (response.data.success) {
           const { token, expired } = response.data;
-          document.cookie = `token=${token};expires=${new Date(expired)};`;
+          document.cookie = `hexToken=${token};expires=${new Date(expired)};`;
           this.$router.push('/admin/products');
         } else {
           alert(response.data.message);
